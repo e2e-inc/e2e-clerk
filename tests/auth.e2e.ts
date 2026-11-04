@@ -35,10 +35,10 @@ describe("Clerk sign-in", { skip, retries: 2, timeout: 120_000 }, () => {
   test("the home page shows who is signed in", { session: "ada" }, async ({ app, screen, testUser }) => {
     await app.open("/");
 
-    await expect(screen.getByRole("heading", "Signed in")).toBeVisible();
-    await expect(screen.getByText(`As ${testUser.email}.`)).toBeVisible();
-    await expect(screen.getByRole("link", "Open account")).toBeVisible();
-    await expect(screen.getByRole("button", "Sign in")).toBeHidden();
+    await expect(screen.getByRole("heading", "signed in")).toBeVisible();
+    await expect(screen.getByText(`as ${testUser.email}.`)).toBeVisible();
+    await expect(screen.getByRole("link", "open account")).toBeVisible();
+    await expect(screen.getByRole("button", "sign in")).toBeHidden();
   });
 
   newUserTest(
@@ -103,7 +103,7 @@ describe("Clerk sign-in", { skip, retries: 2, timeout: 120_000 }, () => {
       const email = newUsers.email("sign-up");
       await addTestingToken(browser, clerk);
       await app.open("/");
-      await screen.getByRole("button", "Create account").click();
+      await screen.getByRole("button", "create account").click();
       await expect(browser).toHaveURL(CLERK_SIGN_UP, { timeout: 15_000 });
       await agent.waitFor("Clerk's sign-up form shows email address and password fields", { interval: 500 });
 
@@ -133,10 +133,10 @@ describe("Clerk sign-in", { skip, retries: 2, timeout: 120_000 }, () => {
       const session = await sessionOnAccountPage(screen, clerk);
       expect(session).toMatchObject({ status: "active", userId: testUser.id });
 
-      await screen.getByRole("button", "Sign out").click();
+      await screen.getByRole("button", "sign out").click();
 
       await expect(browser).toHaveURL("/");
-      await expect(screen.getByRole("button", "Sign in")).toBeVisible();
+      await expect(screen.getByRole("button", "sign in")).toBeVisible();
       await app.open("/account");
       await expect(browser).toHaveURL(CLERK_SIGN_IN, { timeout: 15_000 });
       expect((await clerk.sessions.getSession(session.id)).status).toBe("removed");

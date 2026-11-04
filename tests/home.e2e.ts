@@ -4,7 +4,7 @@ import { expect } from "e2e";
 test("the home page offers to sign in or create an account", async ({ app, screen }) => {
   await app.open("/");
 
-  await expect(screen.getByRole("heading", "Sign in")).toBeVisible();
-  await expect(screen.getByRole("button", "Sign in")).toBeVisible();
-  await expect(screen.getByRole("button", "Create account")).toBeVisible();
+  await expect(screen.getByRole("heading", "sign in")).toBeVisible();
+  await expect(screen.getByRole("button", "sign in")).toBeVisible();
+  await expect(screen.getByRole("button", "create account")).toBeVisible();
 });

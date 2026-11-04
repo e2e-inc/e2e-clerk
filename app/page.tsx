@@ -3,31 +3,30 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { LIGHT_BUTTON, LightButton } from "@/components/ui/light-button";
-import { OutlineButton } from "@/components/ui/outline-button";
+import { Button, buttonClassName } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center px-6 py-10">
-      <div className="flex w-full max-w-100 flex-col gap-6">
-        <section aria-labelledby="home-heading" className="border border-e2e-hairline-strong bg-e2e-panel">
-          <div className="flex flex-col gap-8 p-6 sm:p-8">
-            <Suspense fallback={<Intro title="Sign in" text="Checking your session with Clerk…" />}>
+    <main className="flex flex-1 flex-col items-center justify-center px-e2e-3 py-e2e-8 md:px-e2e-6">
+      <div className="flex w-full max-w-105 flex-col gap-e2e-3">
+        <section aria-labelledby="home-heading" className="border border-e2e-neutral-800 bg-e2e-neutral-800/40">
+          <div className="flex flex-col gap-e2e-4 p-e2e-3">
+            <Suspense fallback={<Intro title="sign in" text="checking your session with Clerk…" />}>
               <SessionActions />
             </Suspense>
           </div>
-          <div className="flex flex-col gap-3 border-t border-e2e-hairline-strong px-6 py-4 sm:px-8">
-            <h2 className="type-label-xs text-e2e-text-faint">Test mode</h2>
-            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 type-code-s">
-              <dt className="text-e2e-text-faint">Email</dt>
-              <dd className="text-e2e-text-soft">you+clerk_test@example.com</dd>
-              <dt className="text-e2e-text-faint">Code</dt>
-              <dd className="text-e2e-text-soft">424242</dd>
+          <div className="flex flex-col gap-e2e-2 border-t border-e2e-neutral-800 p-e2e-3">
+            <h2 className="type-caption text-e2e-neutral-500">test mode</h2>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-e2e-3 gap-y-e2e-1 type-code-s">
+              <dt className="text-e2e-neutral-500">email</dt>
+              <dd className="text-e2e-neutral-300">you+clerk_test@example.com</dd>
+              <dt className="text-e2e-neutral-500">code</dt>
+              <dd className="text-e2e-neutral-300">424242</dd>
             </dl>
           </div>
         </section>
-        <p className="text-center type-caption text-e2e-text-faint">
-          Both buttons lead to accounts.dev, Clerk&apos;s hosted page.
+        <p className="text-center type-body-s text-e2e-neutral-500">
+          both buttons lead to accounts.dev, Clerk&apos;s hosted page.
         </p>
       </div>
     </main>
@@ -40,19 +39,25 @@ async function SessionActions() {
   if (!isAuthenticated) {
     return (
       <>
-        <Intro title="Sign in" text="Use a password, an email code, or Google." />
-        <div className="flex flex-col gap-3">
+        <Intro title="sign in" text="use a password, an email code, or Google." />
+        <div className="flex flex-col gap-e2e-2">
           {/* Disabled until Clerk has loaded, so an early click isn't lost. */}
           <ClerkLoading>
-            <LightButton disabled>Sign in</LightButton>
-            <OutlineButton disabled>Create account</OutlineButton>
+            <Button disabled className="w-full">
+              sign in
+            </Button>
+            <Button variant="outline" disabled className="w-full">
+              create account
+            </Button>
           </ClerkLoading>
           <ClerkLoaded>
             <SignInButton forceRedirectUrl="/account" signUpForceRedirectUrl="/account">
-              <LightButton>Sign in</LightButton>
+              <Button className="w-full">sign in</Button>
             </SignInButton>
             <SignUpButton forceRedirectUrl="/account" signInForceRedirectUrl="/account">
-              <OutlineButton>Create account</OutlineButton>
+              <Button variant="outline" className="w-full">
+                create account
+              </Button>
             </SignUpButton>
           </ClerkLoaded>
         </div>
@@ -63,9 +68,9 @@ async function SessionActions() {
   const user = await currentUser();
   return (
     <>
-      <Intro title="Signed in" text={`As ${user?.primaryEmailAddress?.emailAddress ?? "you"}.`} />
-      <Link href="/account" className={LIGHT_BUTTON}>
-        Open account
+      <Intro title="signed in" text={`as ${user?.primaryEmailAddress?.emailAddress ?? "you"}.`} />
+      <Link href="/account" className={buttonClassName("primary", "w-full")}>
+        open account
       </Link>
     </>
   );
@@ -73,12 +78,12 @@ async function SessionActions() {
 
 function Intro({ title, text }: { title: string; text: string }) {
   return (
-    <div className="flex flex-col gap-3">
-      <p className="type-label-xs text-e2e-text-faint">Clerk sign-in, tested end to end</p>
-      <h1 id="home-heading" className="type-h2 text-e2e-text-bright">
+    <div className="flex flex-col">
+      <p className="type-caption text-e2e-mint">Clerk sign-in, tested end to end</p>
+      <h1 id="home-heading" className="mt-e2e-2 type-h2 text-e2e-off-white">
         {title}
       </h1>
-      <p className="type-body-s text-e2e-text-soft">{text}</p>
+      <p className="mt-e2e-2 type-body-m text-e2e-neutral-300">{text}</p>
     </div>
   );
 }

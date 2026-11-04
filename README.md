@@ -2,13 +2,13 @@
 
 A Next.js app that signs users in on Clerk's hosted pages, used as an example of end-to-end testing a sign-in page you don't own with [e2e](https://www.npmjs.com/package/e2e).
 
-![Sign-in page with Sign in and Create account buttons](docs/screenshot.png)
+![sign-in page with sign in and create account buttons](docs/screenshot.png)
 
 ## How it works
 
 Sign-in and sign-up happen on Clerk's Account Portal, the hosted pages every Clerk app comes with:
 
-- **Home** (`app/page.tsx`) has Sign in and Create account. Clerk's `<SignInButton>` and `<SignUpButton>` wrap our buttons and send you to Clerk.
+- **Home** (`app/page.tsx`) has the sign in and create account buttons. Clerk's `<SignInButton>` and `<SignUpButton>` wrap our buttons and send you to Clerk.
 - **Clerk's page** (`<your-app>.accounts.dev`) signs you in with a password, an email code, or Google, and signs you up.
 - **Account page** (`app/account/page.tsx`) reads the user and the session from Clerk on the server. `auth.protect()` sends a signed-out visitor to Clerk and back.
 

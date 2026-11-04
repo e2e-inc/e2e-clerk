@@ -75,7 +75,7 @@ export async function waitForClerkSignIn({ agent, browser }: Pick<PageFixtures, 
 
 export async function openClerkSignIn({ app, screen, agent, browser }: PageFixtures): Promise<void> {
   await app.open("/");
-  await screen.getByRole("button", "Sign in").click();
+  await screen.getByRole("button", "sign in").click();
   await waitForClerkSignIn({ agent, browser });
 }
 
